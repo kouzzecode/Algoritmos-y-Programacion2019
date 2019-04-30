@@ -1,0 +1,79 @@
+/**
+ 
+    Desarrollar el presente taller en grupo de, a lo más, 2 (dos) estudiantes, en un tiempo máximo de 30 minutos.
+    La fórmula de Taylor para la función trigonométrica cos x se define como:
+ 
+            cos x = 1 – (x^2)/2! + (x^4)/4! – (x^6)/6! + … + (-1)^n x^2n/(2n)!
+ 
+    Construir un programa en lenguaje C que lea valores para x y, incluyendo al menos una función, determine el valor de cos x.
+ 
+    - INTEGRANTES:
+ 
+    SEBASTIÁN MUÑOZ ORTIZ (19.839.581-1)
+    NICOLAS JARA CARVAJAL (19.649.455-3)
+ 
+ 
+**/
+ 
+/*
+  OBSERVACIÓN DE NOSOTROS: X RECIBE EL VALOR EN GRADOS, PERO
+  LA FORMULA ES UNA APROXIMACIÓN. EN ESTE CASO, EN LA FUNCION
+  NO VA EL X DIRECTO, SINO QUE DEBE TRANSFORMARSE A RADIANES
+  PARA QUE FUNCIONE BIEN.
+*/
+ 
+#include <stdio.h>
+#include <stdlib.h>
+ 
+#define PI 3.14159265358979323846 // se define PI
+ 
+double taylor(double x, int n); // x recibirá decimales
+double potencia(double A, int B); // A puede recibir decimales
+double factorial(int A);
+ 
+/*          */
+int main()
+{
+    int n = 7;
+    double x = 90, t; // x es el valor en grados
+    t = taylor(x, n); // taylor(rad, 3)
+ 
+    printf("\nValor aproximado del cos %.0lf con n = %d es %.2lf\n", x, n, t);
+ 
+    return 0;
+}
+ 
+/*          */
+double potencia(double A, int B)
+{
+    if(B == 0) return 1;
+    return A * (potencia(A, B - 1));
+}
+ 
+double factorial(int A)
+{
+    if(A == 0) return 1;
+    return A * factorial(A-1);
+}
+ 
+double taylor(double x, int n)
+{
+    int i;
+    double rad;
+    rad = (x*PI/180);
+    //printf("\n\n%lf\n\n", rad); //Revisa el valor que entra
+ 
+    double coseno = 0;
+ 
+    for(i = 0; i < n; i++)
+    {
+        /* PARA REVISAR LOS VALORES */
+        /*printf("\n%lf ---> n: %d ---> (-1)^n", potencia(-1, i), i);
+        printf("\n%lf ---> x^2n", potencia(rad, 2*i));
+        printf("\n%lf ---> 2n!", factorial(2*i));
+        printf("\n\n");*/
+       
+        coseno = coseno + ((potencia(-1, i) * potencia(rad, 2*i))/(factorial(2*i)));
+    }
+    return coseno;
+}

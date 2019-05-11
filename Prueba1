@@ -1,0 +1,79 @@
+/**
+
+Implementar la función mayor(num) que retorne el dígito de mayor valor existente un un
+entero positivo num. NO se permite el uso de arreglos ni strings.
+
+**/
+
+int mayor(int num) {
+  int dig, max = -1;
+  while(num > 0) {
+    dig = num%10;
+    if(dig > max)
+      max = dig;
+      num = num/10;
+    }
+  return max;
+}
+
+/**
+
+Implementar la función verWallis(n) con el propósito de imprimir los primeros n factores del
+Producto de Wallis, el cual se expresa como 
+2/1 * 2/3 * 4/3 * 4/5 * 6/5 * 6/7 * 8/7 * 8/9 . . .
+
+**/
+
+void verWallis(int n) {
+  int i, k;
+  for(i=1; i<=n; i++) {
+    k = i + 1;
+    if(i%2 != 0)
+      printf("%d / %d * ", k, i);
+    else
+      printf("%d / %d * ", i, k);
+   }
+}
+
+/**
+
+Mediante la definición typedef int vector[100] es posible declarar un vector v de modo que en
+su posición 0 contenga el número de elementos almacenados a partir de la posición 1.
+Implementar la función elimina(v, x) que, sin utilizar arreglos auxiliares, elimine el dato x del
+vector v, debiendo desplazar un lugar a la izquierda los datos situados a continuación de
+x; si x no existe, v no es modificado.
+
+**/
+
+void elimina(vector v, int x) {
+  int i=1, j, k;
+  while(v[i] != x && i<=v[0])
+    i++;
+    if(i <= v[0]) {
+      for(j=i; j<v[0]; j++)
+        v[j] = v[j+1];
+        v[0]--;
+      }
+   }
+}
+
+/**
+La versión digital de una imagen monocromática es una matriz (arreglo bidimensional) de
+pixeles. En ella, cada píxel es un número perteneciente al rango de tonalidades [0..255], donde
+0 representa el negro y 255 el blanco. Una de las formas más simples de reducción de
+contraste en imágenes es el suavizado 4-vecinos, el cual consiste en cambiar el valor de un
+píxel por el valor promedio (entero) de sus cuatro vecinos: arriba, abajo, izquierda derecha.
+Considerar typedef int imagen[512][512]; para implementar la función suavizar(uno, dos) que
+genere una imagen dos correspondiente a la versión suavizada de una imagen uno. Suponer
+que inicialmente la imagen dos es una copia de la imagen uno y notar que tanto las filas
+primera y última como las columnas primera y última no son modificadas. En el siguiente
+ejemplo, el valor 53 es reemplazado por el valor 50.
+
+**/
+
+void magica(imagen uno, imagen dos) {
+  int i, j;
+  for(i=1; i<511; i++)
+  for(j=1; j<511; j++)
+    dos[i][j] = (uno[i][j-1] + uno[i][j+1] + uno[i-1][j] + uno[i+1][j])/4;
+}
